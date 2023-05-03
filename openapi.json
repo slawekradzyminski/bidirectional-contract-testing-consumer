@@ -1,0 +1,297 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Tutorial Management API",
+    "description": "This API exposes endpoints to manage tutorials.",
+    "termsOfService": "https://www.bezkoder.com/terms",
+    "contact": {
+      "name": "BezKoder",
+      "url": "https://www.bezkoder.com",
+      "email": "bezkoder@gmail.com"
+    },
+    "license": {
+      "name": "MIT License",
+      "url": "https://choosealicense.com/licenses/mit/"
+    },
+    "version": "1.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8080",
+      "description": "Server URL in Development environment"
+    },
+    {
+      "url": "https://bezkoder-api.com",
+      "description": "Server URL in Production environment"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Tutorial",
+      "description": "Tutorial management APIs"
+    }
+  ],
+  "paths": {
+    "/api/tutorials/{id}": {
+      "get": {
+        "tags": [
+          "Tutorial",
+          "tutorials",
+          "get"
+        ],
+        "summary": "Retrieve a Tutorial by Id",
+        "description": "Get a Tutorial object by specifying its id. The response is Tutorial object with id, title, description and published status.",
+        "operationId": "getTutorialById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "404": {
+            "description": "Not Found"
+          },
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Tutorial"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Tutorial",
+          "tutorials",
+          "put"
+        ],
+        "summary": "Update a Tutorial by Id",
+        "operationId": "updateTutorial",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Tutorial"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "404": {
+            "description": "Not Found"
+          },
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Tutorial"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Tutorial",
+          "tutorials",
+          "delete"
+        ],
+        "summary": "Delete a Tutorial by Id",
+        "operationId": "deleteTutorial",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/tutorials": {
+      "get": {
+        "tags": [
+          "filter",
+          "Tutorial",
+          "tutorials",
+          "get"
+        ],
+        "summary": "Retrieve all Tutorials",
+        "operationId": "getAllTutorials",
+        "parameters": [
+          {
+            "name": "title",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Tutorial"
+                  }
+                }
+              }
+            }
+          },
+          "204": {
+            "description": "There are no Tutorials"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Tutorial",
+          "post",
+          "tutorials"
+        ],
+        "summary": "Create a new Tutorial",
+        "operationId": "createTutorial",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Tutorial"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Tutorial"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Tutorial",
+          "tutorials",
+          "delete"
+        ],
+        "summary": "Delete all Tutorials",
+        "operationId": "deleteAllTutorials",
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/tutorials/published": {
+      "get": {
+        "tags": [
+          "filter",
+          "Tutorial",
+          "tutorials",
+          "get"
+        ],
+        "summary": "Retrieve all published Tutorials",
+        "operationId": "findByPublished",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Tutorial"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Tutorial": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64",
+            "readOnly": true
+          },
+          "title": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "published": {
+            "type": "boolean"
+          }
+        }
+      }
+    }
+  }
+}
