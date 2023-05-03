@@ -49,7 +49,7 @@ class ConsumerApplicationTests {
     private MockMvc mockMvc;
 
     @Test
-    void contextLoads() throws Exception {
+    void shouldGeneratePactInTargetPactsFolder() throws Exception {
         wiremock.stubFor(WireMock.get(urlEqualTo("/api/tutorials")).willReturn(aResponse()
                 .withHeader("Content-Type", "application/json").withBody("""
                         [
