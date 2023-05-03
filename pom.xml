@@ -80,7 +80,7 @@
                 <version>4.0.10</version>
                 <configuration>
                     <pactBrokerUrl>https://awesome-testing.pactflow.io</pactBrokerUrl>
-                    <pactBrokerToken>V5JdlllOMFIm9zz8fJOyfw</pactBrokerToken>
+                    <pactBrokerToken>TOKEN</pactBrokerToken>
                     <pactBrokerAuthenticationScheme>Bearer</pactBrokerAuthenticationScheme>
                 </configuration>
             </plugin>
