@@ -19,3 +19,14 @@ Correct implementation is here:
 
 ### Publishing provider pact
 See `publishProviderPact.sh`
+
+Will work only with proper Pactflow API token
+
+### Publishing consumer pact
+
+```commandline
+./mvwn test
+./mvwn pact:publish
+```
+
+Will work only with proper Pactflow API token
